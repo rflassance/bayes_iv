@@ -177,15 +177,12 @@ df2 <- data.frame(coef_c = iv_est, n_chain=1:replicas, p = -1, n = new_grid[,2])
 
 df12 <- bind_rows(df, df2)
 
-df12 <- df12 %>%
+df12 %>%
   group_by(n, p) %>%
   summarise(mean = mean(coef_c), min = min(coef_c), max = max(coef_c)) %>%
   pivot_longer(cols = c(mean, min, max)) %>%
   ungroup()  %>%
   pivot_wider(values_from = value, names_from = c(name, p))
-
-
-xtable(df12)
 
 
 df %>%
